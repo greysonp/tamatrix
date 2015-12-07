@@ -21,7 +21,7 @@ M6502/libM6502.a: dummy
 	make -C M6502
 
 tamaemu: $(OBJS) M6502/libM6502.a
-	$(CC) $(LDFLAGS) -o $@ $^
+	$(CC) -o $@ $^ $(LDFLAGS) 
 
 clean:
 	make -C M6502 clean
