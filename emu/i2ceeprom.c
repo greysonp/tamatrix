@@ -65,7 +65,7 @@ I2cEeprom *i2ceepromInit(char *filename) {
 		for (i=0; i<256; i++) write(e->fd, emem, 256);
 	}
 	e->mem=mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_SHARED, e->fd, 0);
-	if (e->mem==NULL) {
+	if (e->mem==MAP_FAILED) {
 		perror("mmap");
 		exit(1);
 	}
