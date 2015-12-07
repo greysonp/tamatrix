@@ -67,6 +67,9 @@ I2cEeprom *i2ceepromInit(char *filename) {
 	e->mem=mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_SHARED, e->fd, 0);
 	if (e->mem==MAP_FAILED) {
 		perror("mmap");
+		printf("(This sometimes happens when you place the eeprom file in the shared\n");
+		printf("folder of your virtualization software. Move it out of the shared folder\n");
+		printf("and use the -e commandline arg to point tamaemu to it.)\n");
 		exit(1);
 	}
 	return e;
