@@ -22,6 +22,7 @@
 #include "lcd.h"
 #include "benevolentai.h"
 #include "udp.h"
+#include "termraw.h"
 
 Tamagotchi *tama;
 int needRestart=0;
@@ -41,7 +42,7 @@ void sighupHdlr(int sig) {
 
 
 int getKey() {
-	char buff[100];
+//	char buff[100];
 	fd_set fds;
 	struct timeval tv;
 	FD_ZERO(&fds);
@@ -50,8 +51,9 @@ int getKey() {
 	tv.tv_usec=0;
 	select(1, &fds, NULL, NULL, &tv);
 	if (FD_ISSET(0, &fds)) {
-		fgets(buff, 99, stdin);
-		return buff[0];
+//		fgets(buff, 99, stdin);
+		return getchar();
+//		return buff[0];
 	} else {
 		return 0;
 	}
@@ -110,6 +112,8 @@ int main(int argc, char **argv) {
 	tama=tamaInit(rom, eeprom);
 	benevolentAiInit();
 	udpInit(host);
+	term_init();
+	term_raw(1);
 	while(1) {
 		clock_gettime(CLOCK_MONOTONIC, &tstart);
 		tamaRun(tama, FCPU/FPS-1);

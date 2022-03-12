@@ -2,7 +2,11 @@
 //header("Content-Type: text/json");
 
 $tama=0;
-if (isset($_REQUEST["tama"])) $lastseq=$_REQUEST["tama"];
+if (isset($_REQUEST["tama"])) $tama=$_REQUEST["tama"];
+if ($tama==-1) {
+	echo file_get_contents("had.bin");
+	exit(0);
+}
 
 $shm=shmop_open(7531, "a", 0644, 1024*8);
 if ($shm===FALSE) die("Can't open ipc shm key");

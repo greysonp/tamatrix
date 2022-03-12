@@ -17,12 +17,11 @@ void lcdShow(Display *lcd) {
 	int x,y;
 	char *icons[]={"INFO", "FOOD", "TOILET", "DOORS", "FIGURE",
 				"TRAINING", "MEDICAL", "IR", "ALBUM", "ATTENTION"};
-	char grays[]=" '*M";
+	const char *grays[4]={"█","▓","░"," "};
 	printf("\033[45;1H\033[1J\033[1;1H");
 	for (y=0; y<32; y++) {
 		for (x=0; x<48; x++) {
-			putchar(grays[lcd->p[y][x]&3]);
-			putchar(grays[lcd->p[y][x]&3]);
+			printf("%s%s", grays[lcd->p[y][x]&3], grays[lcd->p[y][x]&3]);
 		}
 		putchar('\n');
 	}

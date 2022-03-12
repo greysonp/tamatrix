@@ -1,7 +1,7 @@
 LDFLAGS := -lgcc -lrt
 CFLAGS := -ggdb -Wall -O2 -march=native
 OBJS := main.o tamaemu.o i2c.o i2ceeprom.o lcd.o benevolentai.o lcdmatch.o screens.o \
-		ir.o udp.o
+		ir.o udp.o termraw.o
 
 ifeq ("$(PROF)","use")
 LDFLAGS+= -fprofile-use

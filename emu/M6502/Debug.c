@@ -21,6 +21,7 @@
 #include "../tamaemu.h"
 #include "../benevolentai.h"
 #include "../lcd.h"
+#include "../termraw.h"
 
 #ifdef INES
 #include "NES.h"
@@ -150,6 +151,7 @@ byte Debug6502(M6502 *R)
     R->Rd6502(R, 0x0100+(byte)(R->S+3))
   );
 
+  term_raw(0);
   while(1)
   {
     printf("\n[Command,'?']-> ");
@@ -189,7 +191,9 @@ byte Debug6502(M6502 *R)
         printf("q          : Exit emulation\n");
         break;
 
-      case '\0': return(1);
+      case '\0':
+				term_raw(1);
+				return(1);
       case '=':  if(strlen(S)>=2)
                  { sscanf(S+1,"%hX",&(R->Trap));R->Trace=0;return(1); }
                  break;
@@ -197,6 +201,7 @@ byte Debug6502(M6502 *R)
                  {
                    sscanf(S+1,"%hX",&(R->Trap));
                    R->Trap+=R->PC.W;R->Trace=0;
+				   term_raw(1);
                    return(1);
                  }
                  break;
@@ -211,10 +216,12 @@ byte Debug6502(M6502 *R)
 	  case 'P':
 		tamaPressBtn((Tamagotchi*)R->User, atoi(S+1));
 		R->Trace=0;
+	    term_raw(1);
 		return(1);
       case 'L':
 		lcdDump(tama->dram, tama->lcd.sizex, tama->lcd.sizey, S+2);
 		R->Trace=0;
+        term_raw(1);
 		return 1;
       case 'V':
         printf("\n6502 Interrupt Vectors:\n");
@@ -264,17 +271,19 @@ byte Debug6502(M6502 *R)
       case 'A':
 		if (benevolentAiDbgCmd(S+2)) {
 			R->Trace=0;
+            term_raw(1);
 			return 1;
 		}
       case 'E':
         if (benevolentAiMacroRun(S+2)) {
 			R->Trace=0;
+            term_raw(1);
 			return 1;
 		}
         break;
     }
   }
-
+  term_raw(1);
   /* Continue with emulation */  
   return(1);
 }
