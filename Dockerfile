@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:16.04
 MAINTAINER Greyson Parrelli <greyson.parrelli@gmail.com>
 
 # Install required packages
