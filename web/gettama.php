@@ -42,7 +42,7 @@ for ($i=0; $i<$hdr["notama"]; $i++) {
 		$ret->tama[$n]=new StdClass();
 		$ret->tama[$n]->id=$i;
 		$ret->tama[$n]->pixels=$st;
-		$ret->tama[$n]->icons=unpack("S", shmop_read($shm, $off+12+32*48, 2));
+		$ret->tama[$n]->icons=unpack("S", shmop_read($shm, $off+4+32*48, 2));
 		$n++;
 	}
 }
