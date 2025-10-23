@@ -1,3 +1,7 @@
+A fork of http://git.spritesserver.nl/tamatrix.git that adds some nice scripts for setting things up.
+
+---
+
 This contains all the software I've used/written for the Tamagotchi Matrix and viewer.
 
 The directory structure:
